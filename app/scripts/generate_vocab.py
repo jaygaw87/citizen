@@ -1,0 +1,1167 @@
+#!/usr/bin/env python3
+import json
+
+terms = [
+    # --- GOVERNMENT ---
+    {
+        "id": "vocab_001",
+        "word": "Constitution",
+        "pronunciation": "kon-stuh-TOO-shun",
+        "simpleDefinition": "The supreme law of the United States that establishes the structure of the federal government and protects basic rights.",
+        "detailedDefinition": "Written in 1787 at the Constitutional Convention in Philadelphia and ratified in 1788, the U.S. Constitution creates a federal republic with three branches of government and divides power between the federal government and the states.",
+        "exampleSentence": "The U.S. Constitution establishes the framework of the federal government and defines important rights.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q001", "Q002", "Q003", "Q004", "Q005", "Q014"]
+    },
+    {
+        "id": "vocab_002",
+        "word": "Amendment",
+        "pronunciation": "uh-MEND-munt",
+        "simpleDefinition": "An official change or addition to the United States Constitution.",
+        "detailedDefinition": "Under Article V of the Constitution, amendments can be proposed by two-thirds of Congress or a national convention, and ratified by three-fourths of the states. To date, 27 amendments have been added.",
+        "exampleSentence": "An amendment can grant new rights or modify how government institutions operate.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q005", "Q007", "Q048", "Q049", "Q050", "Q073"]
+    },
+    {
+        "id": "vocab_003",
+        "word": "Rule of Law",
+        "pronunciation": "rool uv law",
+        "simpleDefinition": "The principle that everyone must obey the law, no one is above the law, and leaders must follow the law.",
+        "detailedDefinition": "Rule of law guarantees that laws are applied equally, publicly, and fairly to all individuals, government officials, and corporations.",
+        "exampleSentence": "Under the rule of law, no government official or private citizen is above the law.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q013"]
+    },
+    {
+        "id": "vocab_004",
+        "word": "Separation of Powers",
+        "pronunciation": "sep-uh-RAY-shun uv POW-erz",
+        "simpleDefinition": "The division of government power into three separate branches to prevent any one branch from becoming too powerful.",
+        "detailedDefinition": "The Constitution divides authority among the Legislative branch (makes laws), Executive branch (enforces laws), and Judicial branch (interprets laws).",
+        "exampleSentence": "Separation of powers prevents tyranny by ensuring no single branch controls all government authority.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q015", "Q016"]
+    },
+    {
+        "id": "vocab_005",
+        "word": "Checks and Balances",
+        "pronunciation": "cheks und BAL-un-siz",
+        "simpleDefinition": "A constitutional system where each branch of government can limit or check the power of the other branches.",
+        "detailedDefinition": "For example, Congress passes legislation, but the President can veto it. The Supreme Court can declare laws unconstitutional, while the Senate confirms federal judges.",
+        "exampleSentence": "Checks and balances ensure that each branch of government monitors and balances the other two.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q015", "Q016"]
+    },
+    {
+        "id": "vocab_006",
+        "word": "Congress",
+        "pronunciation": "KONG-gris",
+        "simpleDefinition": "The national legislative body of the United States, consisting of the Senate and the House of Representatives.",
+        "detailedDefinition": "Congress meets in the U.S. Capitol in Washington, D.C. It has the constitutional power to make federal laws, declare war, levy taxes, and oversee the federal budget.",
+        "exampleSentence": "Congress is responsible for debating and passing federal legislation for the country.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q017", "Q018", "Q019", "Q020"]
+    },
+    {
+        "id": "vocab_007",
+        "word": "Senate",
+        "pronunciation": "SEN-it",
+        "simpleDefinition": "The upper chamber of Congress, composed of 100 senators (two from each of the 50 states).",
+        "detailedDefinition": "Senators serve 6-year terms. The Senate possesses exclusive constitutional powers to confirm presidential appointments, ratify treaties, and conduct impeachment trials.",
+        "exampleSentence": "Every state has two representatives in the Senate regardless of population.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q018", "Q021", "Q022", "Q023", "Q024"]
+    },
+    {
+        "id": "vocab_008",
+        "word": "Senator",
+        "pronunciation": "SEN-uh-ter",
+        "simpleDefinition": "An elected lawmaker who represents all the people of their entire state in the U.S. Senate.",
+        "detailedDefinition": "To be eligible, a U.S. senator must be at least 30 years old, a U.S. citizen for at least 9 years, and an inhabitant of the state they represent.",
+        "exampleSentence": "A U.S. senator serves a term of six years and represents their whole state.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q022", "Q023", "Q024"]
+    },
+    {
+        "id": "vocab_009",
+        "word": "House of Representatives",
+        "pronunciation": "hows uv rep-rih-ZEN-tuh-tivz",
+        "simpleDefinition": "The lower chamber of Congress, consisting of 435 voting members apportioned among states by population.",
+        "detailedDefinition": "Representatives serve 2-year terms. All bills for raising revenue must originate in the House of Representatives.",
+        "exampleSentence": "The House of Representatives has 435 voting members representing congressional districts.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q018", "Q025", "Q026", "Q027", "Q028"]
+    },
+    {
+        "id": "vocab_010",
+        "word": "Representative",
+        "pronunciation": "rep-rih-ZEN-tuh-tiv",
+        "simpleDefinition": "An elected lawmaker who represents people living in a specific congressional district in the House.",
+        "detailedDefinition": "Representatives serve two-year terms and must be at least 25 years old, a U.S. citizen for at least 7 years, and live in the state they represent.",
+        "exampleSentence": "Citizens vote for a U.S. representative to advocate for their local congressional district.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q026", "Q027", "Q028", "Q029"]
+    },
+    {
+        "id": "vocab_011",
+        "word": "Speaker of the House",
+        "pronunciation": "SPEE-ker uv thuh hows",
+        "simpleDefinition": "The presiding officer and political leader of the House of Representatives, and second in line of presidential succession.",
+        "detailedDefinition": "Elected by the members of the House, the Speaker presides over debates, determines legislative priorities, and follows the Vice President in the presidential line of succession.",
+        "exampleSentence": "If both the President and Vice President can no longer serve, the Speaker of the House becomes President.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q037", "Q041"]
+    },
+    {
+        "id": "vocab_012",
+        "word": "Executive Branch",
+        "pronunciation": "eg-ZEK-yuh-tiv branch",
+        "simpleDefinition": "The branch of government led by the President that is responsible for enforcing and administering federal laws.",
+        "detailedDefinition": "Includes the President, Vice President, Executive Office of the President, Cabinet departments, and independent regulatory agencies.",
+        "exampleSentence": "The executive branch enforces laws created by Congress.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q015", "Q016", "Q030"]
+    },
+    {
+        "id": "vocab_013",
+        "word": "President",
+        "pronunciation": "PREZ-ih-dent",
+        "simpleDefinition": "The head of state, head of government, and Commander in Chief of the United States armed forces.",
+        "detailedDefinition": "Elected every four years through the Electoral College, the President may serve a maximum of two elected terms under the 22nd Amendment.",
+        "exampleSentence": "The President is elected for a four-year term in November.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q030", "Q031", "Q032", "Q033", "Q034"]
+    },
+    {
+        "id": "vocab_014",
+        "word": "Vice President",
+        "pronunciation": "vys PREZ-ih-dent",
+        "simpleDefinition": "The second-highest executive official, who serves as President of the Senate and becomes President if the President dies or resigns.",
+        "detailedDefinition": "The Vice President can cast tie-breaking votes in the Senate and is first in the line of presidential succession under the 25th Amendment.",
+        "exampleSentence": "If the President can no longer serve, the Vice President becomes President.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q035", "Q036", "Q042"]
+    },
+    {
+        "id": "vocab_015",
+        "word": "Commander in Chief",
+        "pronunciation": "kuh-MAN-der in cheef",
+        "simpleDefinition": "The constitutional role of the U.S. President as the supreme leader and civilian commander of the nation's military.",
+        "detailedDefinition": "Article II, Section 2 of the Constitution designates the President as Commander in Chief of the Army and Navy and the state militias when called into national service.",
+        "exampleSentence": "The President serves as Commander in Chief of the armed forces.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q038"]
+    },
+    {
+        "id": "vocab_016",
+        "word": "Veto",
+        "pronunciation": "VEE-toh",
+        "simpleDefinition": "The constitutional power of the President to reject a bill passed by Congress.",
+        "detailedDefinition": "When the President vetoes a bill, Congress may attempt to override the veto with a two-thirds majority vote in both the House and the Senate.",
+        "exampleSentence": "The President has the constitutional power to veto legislation passed by Congress.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q039", "Q040"]
+    },
+    {
+        "id": "vocab_017",
+        "word": "Cabinet",
+        "pronunciation": "KAB-ih-nit",
+        "simpleDefinition": "A council of senior advisors to the President, consisting of the heads of the 15 executive departments and other officials.",
+        "detailedDefinition": "Cabinet secretaries are nominated by the President and confirmed by the Senate. They advise the President on matters relating to the duties of their respective offices.",
+        "exampleSentence": "The President's Cabinet advises the President on policy, defense, and foreign affairs.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q043", "Q044"]
+    },
+    {
+        "id": "vocab_018",
+        "word": "Secretary of State",
+        "pronunciation": "SEK-rih-ter-ee uv stayt",
+        "simpleDefinition": "The Cabinet official who heads the Department of State and advises the President on foreign policy and international relations.",
+        "detailedDefinition": "The Secretary of State conducts diplomatic negotiations, oversees embassies and foreign service officers, and represents the U.S. abroad.",
+        "exampleSentence": "The Secretary of State is a key member of the President's Cabinet dealing with other nations.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q044"]
+    },
+    {
+        "id": "vocab_019",
+        "word": "Secretary of Defense",
+        "pronunciation": "SEK-rih-ter-ee uv dih-FENS",
+        "simpleDefinition": "The Cabinet official in charge of the Department of Defense and civilian control of the military.",
+        "detailedDefinition": "The Secretary of Defense exercises authority, direction, and control over the Army, Navy, Air Force, Marine Corps, and Space Force.",
+        "exampleSentence": "The Secretary of Defense manages military operations and national defense policy.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q044"]
+    },
+    {
+        "id": "vocab_020",
+        "word": "Attorney General",
+        "pronunciation": "uh-TUR-nee JEN-er-ul",
+        "simpleDefinition": "The chief law enforcement officer of the federal government and head of the Department of Justice.",
+        "detailedDefinition": "The Attorney General advises the President and heads of executive departments on legal matters and represents the United States in legal cases.",
+        "exampleSentence": "The Attorney General leads the Department of Justice and enforces federal criminal laws.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q044"]
+    },
+    {
+        "id": "vocab_021",
+        "word": "Judicial Branch",
+        "pronunciation": "joo-DISH-ul branch",
+        "simpleDefinition": "The branch of government that interprets laws, explains what laws mean, and resolves legal disputes.",
+        "detailedDefinition": "Headed by the Supreme Court, the federal judicial branch decides if federal laws or executive actions violate the U.S. Constitution.",
+        "exampleSentence": "The judicial branch reviews laws and decides disputes about constitutional meanings.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q015", "Q016", "Q045"]
+    },
+    {
+        "id": "vocab_022",
+        "word": "Supreme Court",
+        "pronunciation": "soo-PREEM kort",
+        "simpleDefinition": "The highest court in the United States, consisting of nine justices who have the final say on constitutional law.",
+        "detailedDefinition": "Established under Article III of the Constitution, Supreme Court justices are nominated by the President, confirmed by the Senate, and hold lifetime appointments during good behavior.",
+        "exampleSentence": "The Supreme Court is the highest federal court in the United States judicial system.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q045", "Q046", "Q047"]
+    },
+    {
+        "id": "vocab_023",
+        "word": "Chief Justice",
+        "pronunciation": "cheef JUS-tis",
+        "simpleDefinition": "The presiding justice who leads the Supreme Court of the United States.",
+        "detailedDefinition": "The Chief Justice administers the presidential oath of office, presides over Senate impeachment trials of a President, and leads Supreme Court public hearings and conferences.",
+        "exampleSentence": "The Chief Justice of the United States leads the nine Supreme Court justices.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q047"]
+    },
+    {
+        "id": "vocab_024",
+        "word": "Federal Government",
+        "pronunciation": "FED-er-ul GUV-ern-munt",
+        "simpleDefinition": "The national government of the United States, headquartered in Washington, D.C., with authority over the entire nation.",
+        "detailedDefinition": "Under the Constitution's delegated powers, the federal government controls printing money, declaring war, creating an army, and regulating interstate commerce.",
+        "exampleSentence": "The federal government has specific powers granted by the U.S. Constitution.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q001", "Q055"]
+    },
+    {
+        "id": "vocab_025",
+        "word": "State Government",
+        "pronunciation": "stayt GUV-ern-munt",
+        "simpleDefinition": "The government of an individual state that exercises powers reserved to the states under the Tenth Amendment.",
+        "detailedDefinition": "State governments have authority over education, public health, issuing driver's licenses, zoning, and local police protection.",
+        "exampleSentence": "State governments provide schooling and issue driver's licenses to their residents.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q056", "Q057", "Q058"]
+    },
+    {
+        "id": "vocab_026",
+        "word": "Governor",
+        "pronunciation": "GUV-er-ner",
+        "simpleDefinition": "The elected chief executive officer who leads the executive branch of a state government.",
+        "detailedDefinition": "Governors enforce state laws, manage state executive departments, propose state budgets, and command the state National Guard.",
+        "exampleSentence": "The governor is the top executive official of a state government.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q057"]
+    },
+    {
+        "id": "vocab_027",
+        "word": "Capital",
+        "pronunciation": "KAP-ih-tul",
+        "simpleDefinition": "The city that serves as the official seat of government for a nation or an individual state.",
+        "detailedDefinition": "Washington, D.C. is the capital of the United States, while each of the 50 states has its own designated capital city where the state legislature meets.",
+        "exampleSentence": "Each state has a capital city where its state capitol building and governor reside.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q058", "Q117"]
+    },
+    {
+        "id": "vocab_028",
+        "word": "Political Party",
+        "pronunciation": "puh-LIT-ih-kul PAR-tee",
+        "simpleDefinition": "An organized group of citizens who share similar ideas about government and work to elect candidates to public office.",
+        "detailedDefinition": "Political parties organize voters, develop policy platforms, and nominate candidates for municipal, state, and federal elections.",
+        "exampleSentence": "The two major political parties in the United States are the Democratic and Republican parties.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q059", "Q060"]
+    },
+    {
+        "id": "vocab_029",
+        "word": "Democratic Party",
+        "pronunciation": "dem-uh-KRAT-ik PAR-tee",
+        "simpleDefinition": "One of the two major contemporary political parties in the United States, often associated with liberal and progressive policies.",
+        "detailedDefinition": "Tracing its roots back to Thomas Jefferson and Andrew Jackson, it is the oldest active voter-based political party in the world.",
+        "exampleSentence": "The Democratic Party is one of the two main political parties in the United States.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q059", "Q060"]
+    },
+    {
+        "id": "vocab_030",
+        "word": "Republican Party",
+        "pronunciation": "rih-PUB-lih-kun PAR-tee",
+        "simpleDefinition": "One of the two major contemporary political parties in the United States, often associated with conservative policies.",
+        "detailedDefinition": "Founded in 1854 by anti-slavery activists, Abraham Lincoln became the first Republican President in 1860.",
+        "exampleSentence": "The Republican Party was founded in the 1850s to oppose the expansion of slavery.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q059", "Q060"]
+    },
+    {
+        "id": "vocab_031",
+        "word": "Electoral College",
+        "pronunciation": "ee-LEK-ter-ul KOL-ij",
+        "simpleDefinition": "The official body of electors established by the Constitution that formally elects the President and Vice President.",
+        "detailedDefinition": "Each state is assigned electors equal to its total number of senators and representatives in Congress, with 538 total electors nationally.",
+        "exampleSentence": "In the United States, the President is officially elected by the Electoral College.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q032"]
+    },
+    {
+        "id": "vocab_032",
+        "word": "Legislation",
+        "pronunciation": "lej-is-LAY-shun",
+        "simpleDefinition": "A law or set of laws enacted or considered by a legislative body such as the U.S. Congress.",
+        "detailedDefinition": "Before legislation becomes federal law, it is drafted as a bill, debated and amended in committee, and passed by both houses of Congress.",
+        "exampleSentence": "Congress debates new legislation before voting on whether to send it to the President.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q017", "Q018", "Q039"]
+    },
+    {
+        "id": "vocab_033",
+        "word": "Bill",
+        "pronunciation": "bil",
+        "simpleDefinition": "A draft of proposed legislation presented to a legislature for consideration and enactment.",
+        "detailedDefinition": "If approved by both the Senate and House of Representatives, a bill is sent to the President to be signed into law or vetoed.",
+        "exampleSentence": "A bill must be approved by both chambers of Congress before the President can sign it into law.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q018", "Q039", "Q040"]
+    },
+    {
+        "id": "vocab_034",
+        "word": "Ratification",
+        "pronunciation": "rat-ih-fih-KAY-shun",
+        "simpleDefinition": "The formal approval or confirmation of a constitutional amendment or international treaty.",
+        "detailedDefinition": "Constitutional amendments require ratification by three-fourths of the states (38 out of 50 states today) to become part of the Constitution.",
+        "exampleSentence": "The ratification of the 19th Amendment guaranteed women the constitutional right to vote.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q005", "Q007", "Q048"]
+    },
+    {
+        "id": "vocab_035",
+        "word": "Preamble",
+        "pronunciation": "PREE-am-bul",
+        "simpleDefinition": "The introductory statement of the U.S. Constitution outlining the foundational goals and principles of government.",
+        "detailedDefinition": "The Preamble begins with the famous phrase 'We the People' and states goals such as forming a more perfect union and securing the blessings of liberty.",
+        "exampleSentence": "The Preamble to the Constitution declares that political power originates from the American people.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q004"]
+    },
+    {
+        "id": "vocab_036",
+        "word": "Term Limit",
+        "pronunciation": "turm LIM-it",
+        "simpleDefinition": "A legal restriction that limits the number of terms an elected official may serve in a particular public office.",
+        "detailedDefinition": "The 22nd Amendment limits a President to serving two terms (eight years), ensuring that power does not remain permanently with one leader.",
+        "exampleSentence": "The 22nd Amendment established a two-term limit for the U.S. President.",
+        "category": "Government",
+        "relatedQuestionIds": ["Q031", "Q033"]
+    },
+
+    # --- RIGHTS & RESPONSIBILITIES ---
+    {
+        "id": "vocab_037",
+        "word": "Citizen",
+        "pronunciation": "SIT-ih-zun",
+        "simpleDefinition": "A legally recognized member of a nation who owes allegiance to the government and is entitled to full civil rights.",
+        "detailedDefinition": "U.S. citizens have the right to vote in federal elections, run for federal public office, obtain a U.S. passport, and petition the government.",
+        "exampleSentence": "Only U.S. citizens can vote in federal elections and run for federal public office.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q048", "Q049", "Q050", "Q051", "Q052", "Q053"]
+    },
+    {
+        "id": "vocab_038",
+        "word": "Naturalization",
+        "pronunciation": "nach-er-uh-luh-ZAY-shun",
+        "simpleDefinition": "The legal process by which a foreign citizen or national becomes a citizen of the United States.",
+        "detailedDefinition": "Requires meeting residency requirements, demonstrating good moral character, knowledge of English and U.S. civics, and taking the Oath of Allegiance.",
+        "exampleSentence": "Through naturalization, eligible permanent residents can become proud United States citizens.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q052", "Q053", "Q054"]
+    },
+    {
+        "id": "vocab_039",
+        "word": "Oath of Allegiance",
+        "pronunciation": "ohth uv uh-LEE-juns",
+        "simpleDefinition": "A solemn promise sworn by naturalization applicants pledging loyalty to the United States and the Constitution.",
+        "detailedDefinition": "In the Oath of Allegiance, new citizens promise to renounce foreign allegiances, support and defend the Constitution, and serve the nation when required by law.",
+        "exampleSentence": "Applicants take the Oath of Allegiance at their naturalization ceremony to complete the citizenship process.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q053"]
+    },
+    {
+        "id": "vocab_040",
+        "word": "Bill of Rights",
+        "pronunciation": "bil uv ryts",
+        "simpleDefinition": "The first ten amendments to the U.S. Constitution that protect fundamental personal freedoms and limit government power.",
+        "detailedDefinition": "Ratified in 1791, the Bill of Rights safeguards freedoms such as religion, speech, the press, assembly, and trial by jury.",
+        "exampleSentence": "The Bill of Rights guarantees that essential personal liberties cannot be taken away by government.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q006", "Q007", "Q048"]
+    },
+    {
+        "id": "vocab_041",
+        "word": "Freedom of Speech",
+        "pronunciation": "FREE-dum uv speech",
+        "simpleDefinition": "The constitutional right to express opinions, ideas, and criticisms of government without censorship or fear of retaliation.",
+        "detailedDefinition": "Protected by the First Amendment, freedom of speech is fundamental to democratic debate and political participation.",
+        "exampleSentence": "Freedom of speech allows citizens to openly debate government policies and voice different viewpoints.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q048", "Q051"]
+    },
+    {
+        "id": "vocab_042",
+        "word": "Freedom of Religion",
+        "pronunciation": "FREE-dum uv rih-LIJ-un",
+        "simpleDefinition": "The right to practice any religion, or not practice a religion at all, without government interference or establishment.",
+        "detailedDefinition": "The First Amendment prohibits the government from establishing a national religion and protects the free exercise of religious beliefs.",
+        "exampleSentence": "Freedom of religion means anyone can practice any religion, or no religion at all.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q010", "Q048", "Q051"]
+    },
+    {
+        "id": "vocab_043",
+        "word": "Freedom of the Press",
+        "pronunciation": "FREE-dum uv thuh pres",
+        "simpleDefinition": "The right of journalists and newspapers to publish news, opinions, and criticism of government without state censorship.",
+        "detailedDefinition": "Protected under the First Amendment, an independent press informs citizens and serves as a watchdog over public officials.",
+        "exampleSentence": "Freedom of the press allows journalists to report facts and hold public officials accountable.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q048", "Q051"]
+    },
+    {
+        "id": "vocab_044",
+        "word": "Freedom of Assembly",
+        "pronunciation": "FREE-dum uv uh-SEM-blee",
+        "simpleDefinition": "The right of people to gather peacefully in groups for demonstrations, protests, meetings, or public debates.",
+        "detailedDefinition": "Guaranteed by the First Amendment, peaceful assembly allows citizens to organize and associate with others for political and social purposes.",
+        "exampleSentence": "Citizens exercise freedom of assembly when holding peaceful rallies to advocate for social change.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q048", "Q051"]
+    },
+    {
+        "id": "vocab_045",
+        "word": "Right to Petition",
+        "pronunciation": "ryt too puh-TISH-un",
+        "simpleDefinition": "The right of citizens to ask government officials to address grievances, create laws, or correct injustices.",
+        "detailedDefinition": "The First Amendment protects the right of citizens to petition government representatives without fear of punishment.",
+        "exampleSentence": "Citizens have the right to petition the government to express their views on public laws.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q048", "Q051"]
+    },
+    {
+        "id": "vocab_046",
+        "word": "Right to Bear Arms",
+        "pronunciation": "ryt too bayr armz",
+        "simpleDefinition": "The constitutional right protected by the Second Amendment regarding the possession and carrying of weapons.",
+        "detailedDefinition": "The Second Amendment states: 'A well regulated Militia, being necessary to the security of a free State, the right of the people to keep and bear Arms, shall not be infringed.'",
+        "exampleSentence": "The Second Amendment protects the individual right to bear arms under constitutional standards.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q048"]
+    },
+    {
+        "id": "vocab_047",
+        "word": "Due Process",
+        "pronunciation": "doo PROS-es",
+        "simpleDefinition": "The legal requirement that the government must respect all legal rights owed to a person according to the law.",
+        "detailedDefinition": "Found in the Fifth and Fourteenth Amendments, due process ensures fair trials, impartial judges, and protection against arbitrary government deprivations.",
+        "exampleSentence": "Due process guarantees fair legal proceedings before the government may deprive someone of liberty or property.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q006", "Q048"]
+    },
+    {
+        "id": "vocab_048",
+        "word": "Trial by Jury",
+        "pronunciation": "TRY-ul by JOOR-ee",
+        "simpleDefinition": "A legal proceeding in which a panel of impartial citizens decides the factual guilt or innocence of an accused person.",
+        "detailedDefinition": "Guaranteed in criminal cases by the Sixth Amendment and civil suits by the Seventh Amendment, trial by jury is a hallmark of American justice.",
+        "exampleSentence": "The Sixth Amendment guarantees the right to a speedy, public trial by an impartial jury.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q049", "Q050"]
+    },
+    {
+        "id": "vocab_049",
+        "word": "Jury Duty",
+        "pronunciation": "JOOR-ee DOO-tee",
+        "simpleDefinition": "The civic responsibility of citizens to serve on a jury in court when summoned by the judicial system.",
+        "detailedDefinition": "Serving on a jury is one of the distinct responsibilities reserved for United States citizens to guarantee peer judgment in courts.",
+        "exampleSentence": "Serving on a jury is an essential civic responsibility for U.S. citizens.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q049", "Q050"]
+    },
+    {
+        "id": "vocab_050",
+        "word": "Vote",
+        "pronunciation": "voht",
+        "simpleDefinition": "The constitutional right and civic responsibility to select candidates and decide ballot measures in an election.",
+        "detailedDefinition": "Amendments 15, 19, 24, and 26 expanded voting rights to protect against discrimination by race, sex, poll taxes, and age (18 and older).",
+        "exampleSentence": "Voting in federal and state elections is one of the most important rights of a U.S. citizen.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q048", "Q049", "Q050", "Q054"]
+    },
+    {
+        "id": "vocab_051",
+        "word": "Suffrage",
+        "pronunciation": "SUF-rij",
+        "simpleDefinition": "The legal right to vote in political elections.",
+        "detailedDefinition": "The suffrage movement fought for decades to secure voting rights for African Americans, women, and young adults across the United States.",
+        "exampleSentence": "Women's suffrage was constitutionally secured when the 19th Amendment was ratified in 1920.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q048", "Q084"]
+    },
+    {
+        "id": "vocab_052",
+        "word": "Election",
+        "pronunciation": "ee-LEK-shun",
+        "simpleDefinition": "A formal, organized process of voting to choose a person for public office or approve a ballot initiative.",
+        "detailedDefinition": "Federal elections take place every two years on the Tuesday after the first Monday in November across the United States.",
+        "exampleSentence": "Presidential elections are held every four years in the month of November.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q032", "Q054"]
+    },
+    {
+        "id": "vocab_053",
+        "word": "Selective Service",
+        "pronunciation": "suh-LEK-tiv SUR-vis",
+        "simpleDefinition": "The federal agency and registration system maintained by the U.S. to conduct a military draft if national security requires it.",
+        "detailedDefinition": "Federal law requires all male U.S. citizens and male immigrant non-citizens between the ages of 18 and 26 to register for Selective Service.",
+        "exampleSentence": "Men must register for the Selective Service system when they reach age 18.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q053", "Q054"]
+    },
+    {
+        "id": "vocab_054",
+        "word": "Federal Income Tax",
+        "pronunciation": "FED-er-ul IN-kum taks",
+        "simpleDefinition": "A tax levied by the United States Internal Revenue Service (IRS) on the annual earnings of individuals and businesses.",
+        "detailedDefinition": "Authorized by the 16th Amendment, federal income tax returns must generally be filed annually by April 15th.",
+        "exampleSentence": "April 15th is the last day you can send in your federal income tax forms.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q053"]
+    },
+    {
+        "id": "vocab_055",
+        "word": "Pledge of Allegiance",
+        "pronunciation": "plej uv uh-LEE-juns",
+        "simpleDefinition": "A formal promise of loyalty to the United States and the American flag.",
+        "detailedDefinition": "Recited by citizens and schoolchildren, the pledge begins: 'I pledge allegiance to the Flag of the United States of America, and to the Republic for which it stands...'",
+        "exampleSentence": "When reciting the Pledge of Allegiance, Americans show loyalty to the flag and the nation.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q052"]
+    },
+    {
+        "id": "vocab_056",
+        "word": "National Anthem",
+        "pronunciation": "NASH-uh-nul AN-thum",
+        "simpleDefinition": "The patriotic song officially adopted to represent the United States, titled 'The Star-Spangled Banner.'",
+        "detailedDefinition": "Written by Francis Scott Key during the War of 1812 after the bombardment of Fort McHenry, it officially became the national anthem in 1931.",
+        "exampleSentence": "The national anthem of the United States is 'The Star-Spangled Banner.'",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q126"]
+    },
+    {
+        "id": "vocab_057",
+        "word": "Inalienable Rights",
+        "pronunciation": "in-AY-lee-un-uh-bul ryts",
+        "simpleDefinition": "Fundamental natural rights that every human being possesses and which cannot be taken away or surrendered.",
+        "detailedDefinition": "In the Declaration of Independence, Thomas Jefferson wrote that people are endowed with inalienable rights, including life, liberty, and the pursuit of happiness.",
+        "exampleSentence": "Life, liberty, and the pursuit of happiness are inalienable rights proclaimed in the Declaration of Independence.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q010", "Q011"]
+    },
+    {
+        "id": "vocab_058",
+        "word": "Civic Duty",
+        "pronunciation": "SIV-ik DOO-tee",
+        "simpleDefinition": "The responsibilities of citizenship that support a free and functioning democratic society.",
+        "detailedDefinition": "Civic responsibilities include paying taxes, obeying laws, voting in elections, participating in community discussions, and serving on a jury.",
+        "exampleSentence": "Participating in community meetings and voting are great examples of civic duty.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q049", "Q050", "Q054"]
+    },
+    {
+        "id": "vocab_059",
+        "word": "Liberty",
+        "pronunciation": "LIB-er-tee",
+        "simpleDefinition": "The state of being free within society from oppressive restrictions imposed by authority on one's way of life.",
+        "detailedDefinition": "A core American value emphasized in the Declaration of Independence and protected by the Constitution and Bill of Rights.",
+        "exampleSentence": "Securing the blessings of liberty for future generations is a founding goal of the U.S. Constitution.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q010", "Q011"]
+    },
+    {
+        "id": "vocab_060",
+        "word": "Democracy",
+        "pronunciation": "dih-MOK-ruh-see",
+        "simpleDefinition": "A system of government where the power rests with the people, who exercise it directly or through elected representatives.",
+        "detailedDefinition": "In a representative democracy like the United States, citizens participate in regular elections to choose lawmakers who govern according to constitutional law.",
+        "exampleSentence": "In a democracy, the people govern through free, fair, and open elections.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q001", "Q004"]
+    },
+    {
+        "id": "vocab_061",
+        "word": "Republic",
+        "pronunciation": "rih-PUB-lik",
+        "simpleDefinition": "A state in which supreme power is held by the people and their elected representatives, with an elected head of state rather than a monarch.",
+        "detailedDefinition": "The United States is a constitutional federal republic, meaning that representatives govern within the boundaries and protections set by the Constitution.",
+        "exampleSentence": "The United States is a constitutional republic governed by elected representatives.",
+        "category": "Rights & Responsibilities",
+        "relatedQuestionIds": ["Q001"]
+    },
+
+    # --- AMERICAN HISTORY ---
+    {
+        "id": "vocab_062",
+        "word": "Declaration of Independence",
+        "pronunciation": "dek-ler-AY-shun uv in-dih-PEN-duns",
+        "simpleDefinition": "The historic 1776 document announcing that the thirteen American colonies were free and independent from Great Britain.",
+        "detailedDefinition": "Drafted primarily by Thomas Jefferson and adopted on July 4, 1776, it proclaimed the equality of all people and the right to revolution against tyranny.",
+        "exampleSentence": "The Declaration of Independence declared the American colonies free from British rule.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q008", "Q009", "Q010", "Q011", "Q062", "Q063", "Q064"]
+    },
+    {
+        "id": "vocab_063",
+        "word": "American Revolution",
+        "pronunciation": "uh-MAIR-ih-kun rev-uh-LOO-shun",
+        "simpleDefinition": "The war fought from 1775 to 1783 in which the American colonies won their independence from Great Britain.",
+        "detailedDefinition": "Colonists fought against high taxes without representation, quartering of British soldiers, and royal limits on self-government.",
+        "exampleSentence": "George Washington led the Continental Army during the American Revolution.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q061", "Q065", "Q066", "Q067"]
+    },
+    {
+        "id": "vocab_064",
+        "word": "Thirteen Colonies",
+        "pronunciation": "THUR-teen KOL-uh-neez",
+        "simpleDefinition": "The original British settlements along the Atlantic coast that declared independence and formed the first thirteen United States.",
+        "detailedDefinition": "They included New Hampshire, Massachusetts, Rhode Island, Connecticut, New York, New Jersey, Pennsylvania, Delaware, Maryland, Virginia, North Carolina, South Carolina, and Georgia.",
+        "exampleSentence": "The original thirteen colonies became the first thirteen states of the United States.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q061", "Q069", "Q122"]
+    },
+    {
+        "id": "vocab_065",
+        "word": "Constitutional Convention",
+        "pronunciation": "kon-stuh-TOO-shun-ul kun-VEN-shun",
+        "simpleDefinition": "The 1787 meeting of delegates in Philadelphia that drafted the United States Constitution.",
+        "detailedDefinition": "Delegates led by George Washington, James Madison, and Benjamin Franklin debated federal structure, legislative representation, and executive authority.",
+        "exampleSentence": "The U.S. Constitution was written at the Constitutional Convention in 1787.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q066", "Q067"]
+    },
+    {
+        "id": "vocab_066",
+        "word": "Founding Fathers",
+        "pronunciation": "FOWN-ding FAH-therz",
+        "simpleDefinition": "The group of visionary American leaders who led the Revolution, declared independence, and established the United States government.",
+        "detailedDefinition": "Prominent Founding Fathers include George Washington, Thomas Jefferson, John Adams, Benjamin Franklin, Alexander Hamilton, and James Madison.",
+        "exampleSentence": "The Founding Fathers drafted the Declaration of Independence and the Constitution.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q066", "Q067", "Q068"]
+    },
+    {
+        "id": "vocab_067",
+        "word": "Federalist Papers",
+        "pronunciation": "FED-er-uh-list PAY-perz",
+        "simpleDefinition": "A series of 85 essays written in 1787-1788 to urge citizens of New York to ratify the new U.S. Constitution.",
+        "detailedDefinition": "Written under the pseudonym 'Publius' by Alexander Hamilton, James Madison, and John Jay, they explain the principles and mechanics of the Constitution.",
+        "exampleSentence": "The Federalist Papers supported the passage and ratification of the U.S. Constitution.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q068"]
+    },
+    {
+        "id": "vocab_068",
+        "word": "George Washington",
+        "pronunciation": "jorj WOSH-ing-tun",
+        "simpleDefinition": "The Commander of the Continental Army, leader of the Constitutional Convention, and first President of the United States.",
+        "detailedDefinition": "Known as the 'Father of His Country,' Washington set vital precedents for the presidency, including peaceful transfers of power.",
+        "exampleSentence": "George Washington is recognized as the Father of Our Country and was the first U.S. President.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q066", "Q070"]
+    },
+    {
+        "id": "vocab_069",
+        "word": "Thomas Jefferson",
+        "pronunciation": "TOM-us JEF-er-sun",
+        "simpleDefinition": "The principal author of the Declaration of Independence and the third President of the United States.",
+        "detailedDefinition": "Jefferson also orchestrated the 1803 Louisiana Purchase, doubling the physical size of the young American republic.",
+        "exampleSentence": "Thomas Jefferson wrote the Declaration of Independence in 1776.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q063", "Q071"]
+    },
+    {
+        "id": "vocab_070",
+        "word": "Benjamin Franklin",
+        "pronunciation": "BEN-juh-min FRANK-lin",
+        "simpleDefinition": "A famous American Founding Father, diplomat, inventor, author, and oldest delegate at the Constitutional Convention.",
+        "detailedDefinition": "Franklin served as U.S. diplomat to France, started the first free libraries, and served as the first Postmaster General of the United States.",
+        "exampleSentence": "Benjamin Franklin is famous for being a U.S. diplomat and author of Poor Richard's Almanack.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q067"]
+    },
+    {
+        "id": "vocab_071",
+        "word": "James Madison",
+        "pronunciation": "jaymz MAD-ih-sun",
+        "simpleDefinition": "The 'Father of the Constitution,' key author of the Federalist Papers, and fourth President of the United States.",
+        "detailedDefinition": "Madison drafted the Virginia Plan and the Bill of Rights, shaping the basic structure of American constitutional government.",
+        "exampleSentence": "James Madison is known as the Father of the Constitution for his pivotal contributions.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q066", "Q068"]
+    },
+    {
+        "id": "vocab_072",
+        "word": "Alexander Hamilton",
+        "pronunciation": "al-ig-ZAN-der HAM-ul-tun",
+        "simpleDefinition": "An influential Founding Father, primary author of the Federalist Papers, and first Secretary of the Treasury.",
+        "detailedDefinition": "Hamilton founded the Bank of the United States, established the nation's financial system, and championed strong federal governance.",
+        "exampleSentence": "Alexander Hamilton served as the first Secretary of the Treasury under President Washington.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q068"]
+    },
+    {
+        "id": "vocab_073",
+        "word": "Louisiana Purchase",
+        "pronunciation": "loo-EE-zee-an-uh PUR-chus",
+        "simpleDefinition": "The 1803 treaty in which the United States bought a vast western territory from France for fifteen million dollars.",
+        "detailedDefinition": "Signed under President Thomas Jefferson, the purchase added 828,000 square miles and doubled the size of the United States.",
+        "exampleSentence": "The United States bought the Louisiana Territory from France in 1803.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q071"]
+    },
+    {
+        "id": "vocab_074",
+        "word": "Civil War",
+        "pronunciation": "SIV-ul wor",
+        "simpleDefinition": "The war fought between northern states (the Union) and southern states (the Confederacy) from 1861 to 1865.",
+        "detailedDefinition": "The war was fought primarily over the issues of slavery, state sovereignty, and the preservation of the national union.",
+        "exampleSentence": "The Civil War was fought between the North and the South from 1861 to 1865.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q072", "Q073", "Q074", "Q075"]
+    },
+    {
+        "id": "vocab_075",
+        "word": "Abraham Lincoln",
+        "pronunciation": "AY-bruh-ham LINK-un",
+        "simpleDefinition": "The 16th President of the United States who led the nation during the Civil War, preserved the Union, and freed the slaves.",
+        "detailedDefinition": "Lincoln issued the Emancipation Proclamation in 1863 and delivered the Gettysburg Address before his assassination in 1865.",
+        "exampleSentence": "Abraham Lincoln led the country through the Civil War and saved the Union.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q075", "Q076"]
+    },
+    {
+        "id": "vocab_076",
+        "word": "Emancipation Proclamation",
+        "pronunciation": "ee-man-sih-PAY-shun prok-luh-MAY-shun",
+        "simpleDefinition": "The 1863 presidential order issued by Abraham Lincoln that declared all enslaved persons in Confederate states to be free.",
+        "detailedDefinition": "It transformed the Civil War into an explicit struggle for human freedom and opened the Union military to African American soldiers.",
+        "exampleSentence": "The Emancipation Proclamation freed enslaved people in the Confederate states.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q076", "Q077"]
+    },
+    {
+        "id": "vocab_077",
+        "word": "Slavery",
+        "pronunciation": "SLAY-ver-ee",
+        "simpleDefinition": "The brutal practice of owning human beings as property and forcing them to work without freedom or pay.",
+        "detailedDefinition": "Africans were taken to North America and enslaved starting in the colonial era; slavery was formally abolished throughout the U.S. by the 13th Amendment in 1865.",
+        "exampleSentence": "Slavery was a major cause of the American Civil War.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q060", "Q073", "Q074"]
+    },
+    {
+        "id": "vocab_078",
+        "word": "Abolition",
+        "pronunciation": "ab-uh-LISH-un",
+        "simpleDefinition": "The social and political movement to end slavery and emancipate enslaved people in the United States.",
+        "detailedDefinition": "Abolitionist leaders such as Frederick Douglass, Harriet Tubman, and William Lloyd Garrison mobilized public conscience against slavery.",
+        "exampleSentence": "The abolition movement fought courageously to bring an end to slavery in America.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q073", "Q074", "Q077"]
+    },
+    {
+        "id": "vocab_079",
+        "word": "Susan B. Anthony",
+        "pronunciation": "SOO-zun bee AN-thuh-nee",
+        "simpleDefinition": "A pioneering 19th-century civil rights advocate who fought tirelessly for women's voting rights and women's equality.",
+        "detailedDefinition": "Anthony co-founded the National Woman Suffrage Association, traveling and lecturing across the nation to demand equal rights.",
+        "exampleSentence": "Susan B. Anthony is famous for fighting for women's rights and voting rights.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q078"]
+    },
+    {
+        "id": "vocab_080",
+        "word": "World War I",
+        "pronunciation": "wurld wor wun",
+        "simpleDefinition": "The global conflict fought from 1914 to 1918, in which the United States entered in 1917 under President Woodrow Wilson.",
+        "detailedDefinition": "The Allied Powers, joined by the U.S., defeated the Central Powers in Europe, leading to the League of Nations proposal.",
+        "exampleSentence": "The United States fought in World War I under the presidency of Woodrow Wilson.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q079", "Q080"]
+    },
+    {
+        "id": "vocab_081",
+        "word": "Woodrow Wilson",
+        "pronunciation": "WOOD-roh WIL-sun",
+        "simpleDefinition": "The 28th President of the United States who led the nation during World War I and proposed the League of Nations.",
+        "detailedDefinition": "Wilson advocated for his 'Fourteen Points' peace principles to foster world democracy and self-determination.",
+        "exampleSentence": "Woodrow Wilson was President of the United States during World War I.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q080"]
+    },
+    {
+        "id": "vocab_082",
+        "word": "Great Depression",
+        "pronunciation": "grayt dih-PRESH-un",
+        "simpleDefinition": "The severe economic crisis that began with the stock market crash of 1929 and lasted throughout the 1930s.",
+        "detailedDefinition": "Characterized by massive unemployment, widespread poverty, bank collapses, and agricultural hardship across the country.",
+        "exampleSentence": "President Franklin Roosevelt introduced the New Deal to combat the Great Depression.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q081", "Q082"]
+    },
+    {
+        "id": "vocab_083",
+        "word": "Franklin D. Roosevelt",
+        "pronunciation": "FRANK-lin dee ROH-zuh-velt",
+        "simpleDefinition": "The 32nd President who led the United States through both the Great Depression and World War II.",
+        "detailedDefinition": "Elected to four terms, Roosevelt established the New Deal programs and served as Commander in Chief during most of World War II.",
+        "exampleSentence": "Franklin D. Roosevelt was President during both the Great Depression and World War II.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q081", "Q082"]
+    },
+    {
+        "id": "vocab_084",
+        "word": "World War II",
+        "pronunciation": "wurld wor too",
+        "simpleDefinition": "The global war from 1939 to 1945 in which the United States fought the Axis powers (Japan, Germany, and Italy).",
+        "detailedDefinition": "The U.S. entered the war following Japan's attack on Pearl Harbor on December 7, 1941, fighting in both the European and Pacific theaters.",
+        "exampleSentence": "During World War II, the United States fought against Japan, Germany, and Italy.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q081", "Q083"]
+    },
+    {
+        "id": "vocab_085",
+        "word": "Dwight D. Eisenhower",
+        "pronunciation": "DWYT dee EYE-zun-how-er",
+        "simpleDefinition": "A five-star Army general who was Supreme Allied Commander in Europe during World War II and later the 34th U.S. President.",
+        "detailedDefinition": "Eisenhower planned the D-Day invasion of Normandy in 1944 and served as U.S. President throughout the 1950s.",
+        "exampleSentence": "Before becoming President, Dwight D. Eisenhower was a famous general in World War II.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q084"]
+    },
+    {
+        "id": "vocab_086",
+        "word": "Cold War",
+        "pronunciation": "kohld wor",
+        "simpleDefinition": "The decades-long ideological conflict and geopolitical rivalry between the United States and the Soviet Union.",
+        "detailedDefinition": "Lasting from the end of World War II until the collapse of the Soviet Union in 1991, the primary concern of the U.S. was containing the spread of communism.",
+        "exampleSentence": "During the Cold War, the main concern of the United States was the spread of communism.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q085"]
+    },
+    {
+        "id": "vocab_087",
+        "word": "Communism",
+        "pronunciation": "KOM-yuh-niz-um",
+        "simpleDefinition": "A political and economic ideology where the state owns all property and means of production, with power concentrated in one party.",
+        "detailedDefinition": "During the 20th century, the United States resisted the global expansion of Soviet and totalitarian communist regimes.",
+        "exampleSentence": "Stopping the spread of communism was the United States' top international goal during the Cold War.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q085"]
+    },
+    {
+        "id": "vocab_088",
+        "word": "Civil Rights Movement",
+        "pronunciation": "SIV-ul ryts MOOV-munt",
+        "simpleDefinition": "The mass social movement in the 1950s and 1960s to end racial segregation and racial discrimination against African Americans.",
+        "detailedDefinition": "Through peaceful marches, boycotts, and legal challenges, the movement secured the Civil Rights Act of 1964 and Voting Rights Act of 1965.",
+        "exampleSentence": "The civil rights movement fought to end racial discrimination and achieve equal rights for all Americans.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q086"]
+    },
+    {
+        "id": "vocab_089",
+        "word": "Martin Luther King Jr.",
+        "pronunciation": "MAR-tin LOO-ther king JOON-yer",
+        "simpleDefinition": "A renowned civil rights leader and minister who championed racial equality and justice through nonviolent protest.",
+        "detailedDefinition": "Delivered the iconic 'I Have a Dream' speech at the 1963 March on Washington and was awarded the Nobel Peace Prize in 1964.",
+        "exampleSentence": "Martin Luther King, Jr. fought for civil rights and worked for equality for all Americans.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q087", "Q128"]
+    },
+    {
+        "id": "vocab_090",
+        "word": "September 11 Attacks",
+        "pronunciation": "sep-TEM-ber ee-LEV-un uh-TAKS",
+        "simpleDefinition": "The tragic terrorist attacks on September 11, 2001, when hijacked planes struck the World Trade Center and the Pentagon.",
+        "detailedDefinition": "Nineteen Al-Qaeda terrorists hijacked four commercial airliners, killing nearly 3,000 people and prompting major national security reforms.",
+        "exampleSentence": "On September 11, 2001, terrorists attacked the World Trade Center in New York and the Pentagon in Virginia.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q088"]
+    },
+    {
+        "id": "vocab_091",
+        "word": "American Indian Tribes",
+        "pronunciation": "uh-MAIR-ih-kun IN-dee-un trybz",
+        "simpleDefinition": "The indigenous sovereign nations and peoples who lived in North America for thousands of years before European arrival.",
+        "detailedDefinition": "Federally recognized tribes include the Cherokee, Navajo, Sioux, Chippewa, Choctaw, Pueblo, Apache, Iroquois, and many others.",
+        "exampleSentence": "Cherokee, Navajo, and Sioux are examples of American Indian tribes in the United States.",
+        "category": "American History",
+        "relatedQuestionIds": ["Q089"]
+    },
+
+    # --- GEOGRAPHY & CIVICS ---
+    {
+        "id": "vocab_092",
+        "word": "Missouri River",
+        "pronunciation": "mih-ZOOR-ee RIV-er",
+        "simpleDefinition": "The longest river in North America, flowing 2,341 miles from the Rocky Mountains to join the Mississippi River.",
+        "detailedDefinition": "Rising in western Montana, the Missouri River drains one-sixth of the North American continent before flowing into the Mississippi north of St. Louis.",
+        "exampleSentence": "The Missouri River is one of the two longest rivers in the United States.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q090"]
+    },
+    {
+        "id": "vocab_093",
+        "word": "Mississippi River",
+        "pronunciation": "mis-ih-SIP-ee RIV-er",
+        "simpleDefinition": "One of the two longest rivers in the United States, flowing southward from Minnesota to the Gulf of Mexico.",
+        "detailedDefinition": "Spanning approximately 2,320 miles, it serves as a vital commercial waterway and geographic boundary for several states.",
+        "exampleSentence": "The Mississippi River flows into the Gulf of Mexico south of New Orleans.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q090"]
+    },
+    {
+        "id": "vocab_094",
+        "word": "Pacific Ocean",
+        "pronunciation": "puh-SIF-ik OH-shun",
+        "simpleDefinition": "The largest and deepest ocean in the world, located along the West Coast of the United States.",
+        "detailedDefinition": "States bordering the Pacific Ocean include California, Oregon, Washington, Alaska, and Hawaii.",
+        "exampleSentence": "The Pacific Ocean borders the West Coast of the United States.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q091"]
+    },
+    {
+        "id": "vocab_095",
+        "word": "Atlantic Ocean",
+        "pronunciation": "at-LAN-tik OH-shun",
+        "simpleDefinition": "The ocean located along the East Coast of the United States, separating the Americas from Europe and Africa.",
+        "detailedDefinition": "Fourteen states lie along the Atlantic coastline, including the original thirteen American colonies.",
+        "exampleSentence": "The Atlantic Ocean is on the East Coast of the United States.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q092"]
+    },
+    {
+        "id": "vocab_096",
+        "word": "U.S. Territory",
+        "pronunciation": "yoo-es TAIR-ih-tor-ee",
+        "simpleDefinition": "A geographic area under the jurisdiction of the United States that is not part of any of the 50 states.",
+        "detailedDefinition": "Inhabited U.S. territories include Puerto Rico, Guam, American Samoa, the U.S. Virgin Islands, and the Northern Mariana Islands.",
+        "exampleSentence": "Puerto Rico and Guam are examples of U.S. territories.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q093"]
+    },
+    {
+        "id": "vocab_097",
+        "word": "Puerto Rico",
+        "pronunciation": "PWAIR-toh REE-koh",
+        "simpleDefinition": "An unincorporated U.S. island territory located in the northeastern Caribbean Sea.",
+        "detailedDefinition": "People born in Puerto Rico are natural-born United States citizens, with a resident commissioner representing the island in Congress.",
+        "exampleSentence": "Puerto Rico is the most populous U.S. island territory.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q093"]
+    },
+    {
+        "id": "vocab_098",
+        "word": "Guam",
+        "pronunciation": "gwahm",
+        "simpleDefinition": "An organized unincorporated U.S. territory located in the western Pacific Ocean.",
+        "detailedDefinition": "Guam has been a U.S. territory since 1898 and is home to strategic American military installations.",
+        "exampleSentence": "Guam is a U.S. territory located in the Pacific Ocean.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q093"]
+    },
+    {
+        "id": "vocab_099",
+        "word": "Northern Border",
+        "pronunciation": "NOR-thern BOR-der",
+        "simpleDefinition": "The international border separating the northern United States from Canada, the longest undefended border in the world.",
+        "detailedDefinition": "Thirteen states border Canada: Alaska, Washington, Idaho, Montana, North Dakota, Minnesota, Michigan, Ohio, Pennsylvania, New York, Vermont, New Hampshire, and Maine.",
+        "exampleSentence": "New York, Washington, and Maine are states that border Canada along the northern border.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q094"]
+    },
+    {
+        "id": "vocab_100",
+        "word": "Southern Border",
+        "pronunciation": "SUTH-ern BOR-der",
+        "simpleDefinition": "The international border separating the southern United States from Mexico.",
+        "detailedDefinition": "Four states border Mexico: California, Arizona, New Mexico, and Texas, spanning nearly 2,000 miles.",
+        "exampleSentence": "California, Arizona, New Mexico, and Texas border Mexico along the southern border.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q095"]
+    },
+    {
+        "id": "vocab_101",
+        "word": "Washington, D.C.",
+        "pronunciation": "WOSH-ing-tun dee-see",
+        "simpleDefinition": "The capital city of the United States, a federal district not part of any U.S. state.",
+        "detailedDefinition": "Named after George Washington and Christopher Columbus, it houses the White House, the U.S. Capitol, and the Supreme Court.",
+        "exampleSentence": "Washington, D.C. is the capital of the United States.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q096"]
+    },
+    {
+        "id": "vocab_102",
+        "word": "Statue of Liberty",
+        "pronunciation": "STACH-oo uv LIB-er-tee",
+        "simpleDefinition": "A colossal neoclassical copper sculpture on Liberty Island in New York Harbor, representing freedom and democracy.",
+        "detailedDefinition": "A gift from the people of France dedicated in 1886, it welcomed millions of immigrants arriving in the United States by sea.",
+        "exampleSentence": "The Statue of Liberty is located in New York Harbor on Liberty Island.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q097"]
+    },
+    {
+        "id": "vocab_103",
+        "word": "American Flag",
+        "pronunciation": "uh-MAIR-ih-kun flag",
+        "simpleDefinition": "The official national flag of the United States, featuring 13 alternating red and white stripes and 50 white stars.",
+        "detailedDefinition": "The 13 stripes represent the original 13 colonies, and the 50 stars on the blue canton represent the 50 current states.",
+        "exampleSentence": "The American flag has 13 red and white stripes and 50 white stars.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q098", "Q099"]
+    },
+    {
+        "id": "vocab_104",
+        "word": "Stars and Stripes",
+        "pronunciation": "starz und stryps",
+        "simpleDefinition": "The popular nickname for the flag of the United States.",
+        "detailedDefinition": "Each star stands for one state in the Union, and each stripe stands for one of the original thirteen founding colonies.",
+        "exampleSentence": "The Stars and Stripes represents the fifty states and thirteen original colonies.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q098", "Q099"]
+    },
+    {
+        "id": "vocab_105",
+        "word": "Memorial Day",
+        "pronunciation": "muh-MOR-ee-ul day",
+        "simpleDefinition": "A federal holiday observed on the last Monday of May to honor and mourn military personnel who died serving the nation.",
+        "detailedDefinition": "Originated after the Civil War as Decoration Day, citizens decorate military graves and hold solemn remembrance ceremonies.",
+        "exampleSentence": "Memorial Day honors the brave service members who gave their lives for our country.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q100"]
+    },
+    {
+        "id": "vocab_106",
+        "word": "Independence Day",
+        "pronunciation": "in-dih-PEN-duns day",
+        "simpleDefinition": "The federal holiday celebrated on the Fourth of July commemorating the adoption of the Declaration of Independence in 1776.",
+        "detailedDefinition": "Commonly called the Fourth of July, it is celebrated with fireworks, parades, barbecues, and family gatherings across the nation.",
+        "exampleSentence": "We celebrate Independence Day on the Fourth of July.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q064", "Q100"]
+    },
+    {
+        "id": "vocab_107",
+        "word": "Labor Day",
+        "pronunciation": "LAY-ber day",
+        "simpleDefinition": "A federal holiday celebrated on the first Monday in September honoring the contributions and achievements of American workers.",
+        "detailedDefinition": "Created by the labor movement in the late 19th century, it became an official federal holiday in 1894.",
+        "exampleSentence": "Labor Day honors American workers and takes place on the first Monday in September.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q100"]
+    },
+    {
+        "id": "vocab_108",
+        "word": "Veterans Day",
+        "pronunciation": "VET-er-unz day",
+        "simpleDefinition": "A federal holiday observed on November 11 honoring all living and deceased military veterans of the United States Armed Forces.",
+        "detailedDefinition": "Originally called Armistice Day to mark the end of World War I, it honors all who served honorably in the military during peace or war.",
+        "exampleSentence": "Veterans Day is observed on November 11th to honor everyone who served in the military.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q100"]
+    },
+    {
+        "id": "vocab_109",
+        "word": "Thanksgiving Day",
+        "pronunciation": "thanks-GIV-ing day",
+        "simpleDefinition": "A federal holiday celebrated on the fourth Thursday of November to express gratitude for harvest and blessings.",
+        "detailedDefinition": "Tracing back to a 1621 harvest meal between English pilgrims and Wampanoag Native Americans in Plymouth, Massachusetts.",
+        "exampleSentence": "Thanksgiving is celebrated on the fourth Thursday in November.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q100"]
+    },
+    {
+        "id": "vocab_110",
+        "word": "Juneteenth",
+        "pronunciation": "joon-TEENTH",
+        "simpleDefinition": "A federal holiday observed on June 19 commemorating the emancipation of enslaved African Americans in the United States.",
+        "detailedDefinition": "Commemorates June 19, 1865, when Union troops arrived in Galveston, Texas to announce and enforce the freedom of enslaved people.",
+        "exampleSentence": "Juneteenth celebrates the end of slavery in the United States and is a national federal holiday.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q100"]
+    },
+    {
+        "id": "vocab_111",
+        "word": "Presidents' Day",
+        "pronunciation": "PREZ-ih-dents day",
+        "simpleDefinition": "A federal holiday celebrated on the third Monday in February honoring George Washington and all American presidents.",
+        "detailedDefinition": "Originally established to celebrate George Washington's birthday, it now honors all past presidents of the United States.",
+        "exampleSentence": "Presidents' Day in February honors the leadership of George Washington and Abraham Lincoln.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q100"]
+    },
+    {
+        "id": "vocab_112",
+        "word": "Martin Luther King Jr. Day",
+        "pronunciation": "MAR-tin LOO-ther king day",
+        "simpleDefinition": "A federal holiday observed on the third Monday of January honoring the life and legacy of Dr. Martin Luther King, Jr.",
+        "detailedDefinition": "Recognized as a national day of service, encouraging citizens to volunteer and work for equality and justice in their communities.",
+        "exampleSentence": "Martin Luther King, Jr. Day is celebrated on the third Monday of January.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q087", "Q100"]
+    },
+    {
+        "id": "vocab_113",
+        "word": "New Year's Day",
+        "pronunciation": "noo yeerz day",
+        "simpleDefinition": "A federal holiday celebrated on January 1st marking the beginning of the new calendar year.",
+        "detailedDefinition": "Celebrated nationwide with gatherings, resolutions, and community festivities marking a fresh start.",
+        "exampleSentence": "January 1st is New Year's Day, a national federal holiday in the United States.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q100"]
+    },
+    {
+        "id": "vocab_114",
+        "word": "Columbus Day",
+        "pronunciation": "kuh-LUM-bus day",
+        "simpleDefinition": "A federal holiday celebrated on the second Monday in October honoring Italian-American heritage and maritime exploration.",
+        "detailedDefinition": "Also widely celebrated in many states and municipalities alongside or as Indigenous Peoples' Day to honor Native American culture and history.",
+        "exampleSentence": "Columbus Day is observed as a national federal holiday in October.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q100"]
+    },
+    {
+        "id": "vocab_115",
+        "word": "Christmas Day",
+        "pronunciation": "KRIS-mus day",
+        "simpleDefinition": "A federal holiday celebrated on December 25th as a cultural celebration of peace, giving, and family.",
+        "detailedDefinition": "Recognized as a federal holiday since 1870, marked by family reunions, charity, and exchange of gifts across communities.",
+        "exampleSentence": "December 25th is Christmas Day, a recognized federal holiday in the United States.",
+        "category": "Geography & Civics",
+        "relatedQuestionIds": ["Q100"]
+    }
+]
+
+with open("app/src/main/assets/civics_vocabulary.json", "w", encoding="utf-8") as f:
+    json.dump(terms, f, indent=2, ensure_ascii=False)
+
+print(f"Wrote {len(terms)} vocabulary terms successfully.")

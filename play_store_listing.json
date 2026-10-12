@@ -1,0 +1,71 @@
+{
+  "listing": {
+    "title": "U.S. Citizenship Test",
+    "title_length": 21,
+    "short_description": "Study official 128 USCIS civics questions with speech and practice tests.",
+    "short_description_length": 73,
+    "full_description": "Prepare for the naturalization civics exam with U.S. Citizenship Test. This comprehensive study tool helps applicants master the official 128 U.S. civics questions, practice speaking responses, study interactive flashcards, and track progress toward naturalization.\n\nOFFICIAL 128 CIVICS QUESTIONS\n• Access all 128 official questions and accepted answers based on public civics test guidelines\n• Organized into official categories: American Government, American History, and Integrated Civics\n• Search questions by number, keywords, or answers\n• Bookmark challenging questions to your Favorites list\n\nREALISTIC PRACTICE TESTS\n• Quick Practice (10 questions) for fast daily review\n• Full Practice Exam (20 questions) simulating the naturalization exam format\n• Topic-focused practice tests by civics category\n• Strict 60% passing threshold with detailed score summaries and mistake review\n\nSPEAKING PRACTICE INTERVIEW SIMULATION\n• Practice answering questions aloud with your device's microphone\n• Voice-reactive interface provides visual response feedback\n• Instant answer evaluation: identifies Correct and Not Correct responses\n• Compares spoken answers with official accepted USCIS answers\n\nINTERACTIVE FLASHCARDS\n• 3D card-flip study mode for self-testing\n• Shuffle mode for randomized recall practice\n• Category and status filters: Government, History, Civics, Favorites, and Needs Practice\n\n65/20 SPECIAL CONSIDERATION\n• Dedicated mode for qualifying applicants age 65 or older with at least 20 years of lawful permanent residency\n• Focused access to the designated 20-question subset\n• Tailored 10-question practice tests with a 6-correct passing threshold\n\nCIVICS VOCABULARY\n• 100 essential vocabulary terms for the naturalization reading and writing tests\n• Audio pronunciation and definitions\n• Track mastery across Reading, Writing, Government, History, and Civics lists\n\nAUDIO & TEXT-TO-SPEECH\n• Listen to clear pronunciation of every question and accepted answer\n• Adjustable speech speeds (0.8x, 1.0x, 1.15x)\n• Optional auto-play for hands-free audio study\n\nPROGRESS & MASTERY TRACKING\n• Visual readiness rings showing overall mastery percentage\n• Category completion breakdown\n• Study streak and activity tracking to help maintain daily habits\n• Reset Learning Progress option available in Settings whenever you want a fresh start\n\nOFFLINE FUNCTIONALITY\n• All questions, answers, and study tools work completely offline\n• Progress and practice test history remain securely stored on your device\n• No account creation or personal login required\n\nIMPORTANT GOVERNMENT INFORMATION & NON-AFFILIATION DISCLAIMER:\nThis application is an independent educational tool created to help applicants prepare for the naturalization test. It is NOT affiliated with, endorsed by, sponsored by, or connected to U.S. Citizenship and Immigration Services (USCIS) or any United States government agency.\n\nAll civics questions, accepted answers, and test specifications are derived from public educational materials published by U.S. Citizenship and Immigration Services (USCIS Form M-1778, 2025/2026 Civics Test). For official naturalization guidelines, application filing, and immigration information, please visit the official USCIS website at https://www.uscis.gov.",
+    "full_description_length": 3288
+  },
+  "capability_inventory": [
+    {
+      "capability": "128 USCIS civics questions and accepted answers",
+      "evidence": "app/src/main/assets/civics_questions_128.json, com.example.data.local.entity.QuestionEntity"
+    },
+    {
+      "capability": "Categorization (American Government: 75, American History: 43, Integrated Civics: 10)",
+      "evidence": "com.example.data.repository.DefaultQuestionRepository.getQuestionsByCategory"
+    },
+    {
+      "capability": "Search questions by text, number, and accepted answers",
+      "evidence": "com.example.data.local.dao.QuestionDao.searchQuestions"
+    },
+    {
+      "capability": "Practice Tests (Quick 10, Full 20, Topic, 60% passing threshold)",
+      "evidence": "com.example.ui.practice.PracticeSessionViewModel, com.example.data.model.TestConstants"
+    },
+    {
+      "capability": "Speaking Practice with microphone speech recognition and voice-reactive feedback",
+      "evidence": "com.example.ui.speaking.SpeakingPracticeScreen, com.example.speech.SpeechRecognizerHelper"
+    },
+    {
+      "capability": "Speech answer evaluation against accepted answers",
+      "evidence": "com.example.speech.AnswerMatcher"
+    },
+    {
+      "capability": "Flashcards with 3D flip, shuffle, and category filters",
+      "evidence": "com.example.ui.flashcards.FlashcardsScreen, com.example.ui.flashcards.FlashcardsViewModel"
+    },
+    {
+      "capability": "65/20 Special Consideration 20-question mode",
+      "evidence": "com.example.ui.senior6520.Senior6520Screen, com.example.data.repository.DefaultQuestionRepository.get65_20Questions"
+    },
+    {
+      "capability": "Civics Vocabulary 100 terms with categories and audio",
+      "evidence": "app/src/main/assets/civics_vocabulary.json, com.example.ui.vocabulary.VocabularyScreen"
+    },
+    {
+      "capability": "Audio Text-to-Speech with adjustable speeds (0.8x, 1.0x, 1.15x)",
+      "evidence": "com.example.speech.TextToSpeechHelper, com.example.data.local.PreferencesRepository"
+    },
+    {
+      "capability": "Progress tracking, mastery calculations, and study streak",
+      "evidence": "com.example.data.learning.MasteryCalculator, com.example.data.learning.StudyStreakCalculator"
+    },
+    {
+      "capability": "Offline local data persistence (Room SQLite database & DataStore preferences)",
+      "evidence": "com.example.data.local.AppDatabase, com.example.data.local.PreferencesRepository"
+    }
+  ],
+  "disclosures_applied": [
+    {
+      "category": "Presents government data or official state information",
+      "disclosure_text": "This application is an independent educational tool created to help applicants prepare for the naturalization test. It is NOT affiliated with, endorsed by, sponsored by, or connected to U.S. Citizenship and Immigration Services (USCIS) or any United States government agency. All civics questions, accepted answers, and test specifications are derived from public educational materials published by U.S. Citizenship and Immigration Services (USCIS Form M-1778, 2025/2026 Civics Test). Official resources can be found at https://www.uscis.gov."
+    }
+  ],
+  "omitted_for_lack_of_evidence": [
+    "Cloud synchronization across devices (app operates strictly with offline local Room and DataStore storage)",
+    "User account login or registration (no authentication backend used)",
+    "In-app purchases or subscriptions (no Google Play Billing client implemented)"
+  ]
+}

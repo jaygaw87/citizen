@@ -1,0 +1,101 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Outer Shield Crest / Seal -->
+    <path
+        android:fillColor="#0D2040"
+        android:pathData="M54,20 C68,20 80,23 80,23 C80,48 72,71 54,85 C36,71 28,48 28,23 C28,23 40,20 54,20 Z" />
+    <!-- Gold Shield Border -->
+    <path
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="2"
+        android:fillColor="#00000000"
+        android:pathData="M54,22 C66,22 78,25 78,25 C78,48 70,69 54,82 C38,69 30,48 30,25 C30,25 42,22 54,22 Z" />
+    <path
+        android:strokeColor="#40FFFFFF"
+        android:strokeWidth="0.8"
+        android:fillColor="#00000000"
+        android:pathData="M54,25 C64,25 74,27.5 74,27.5 C74,48 68,66 54,79 C40,66 34,48 34,27.5 C34,27.5 44,25 54,25 Z" />
+
+    <!-- 3 Civic Stars at Top -->
+    <!-- Center star -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,27 L55.2,30.5 L58.9,30.5 L55.9,32.7 L57.1,36.2 L54,34 L50.9,36.2 L52.1,32.7 L49.1,30.5 L52.8,30.5 Z" />
+    <!-- Left star -->
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M44,29 L44.9,31.7 L47.8,31.7 L45.4,33.4 L46.3,36.1 L44,34.4 L41.7,36.1 L42.6,33.4 L40.2,31.7 L43.1,31.7 Z" />
+    <!-- Right star -->
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M64,29 L64.9,31.7 L67.8,31.7 L65.4,33.4 L66.3,36.1 L64,34.4 L61.7,36.1 L62.6,33.4 L60.2,31.7 L63.1,31.7 Z" />
+
+    <!-- Classical Civic Pediment / Hall -->
+    <!-- Pediment Roof -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,38 L37,47 L71,47 Z" />
+    <path
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1.2"
+        android:fillColor="#00000000"
+        android:pathData="M37,47 L54,38 L71,47" />
+
+    <!-- Entablature bar -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M37,48 H71 V50.5 H37 Z" />
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M38,49 H70 V50 H38 Z" />
+
+    <!-- 4 Civic Columns -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M40,51.5 H43.5 V63 H40 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M47,51.5 H50.5 V63 H47 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M57.5,51.5 H61 V63 H57.5 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M64.5,51.5 H68 V63 H64.5 Z" />
+
+    <!-- Column Bases / Plinth Steps -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M36,64 H72 V66.5 H36 Z" />
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M34,67 H74 V69 H34 Z" />
+
+    <!-- Central Torch of Liberty (between the central columns) -->
+    <!-- Torch Cup & Handle -->
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M52.5,56 H55.5 L55,62 H53 Z" />
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M51.5,54.5 H56.5 L55.5,56 H52.5 Z" />
+    <!-- Torch Flame (glowing in amber/gold) -->
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M54,48 C55.8,50.5 57,52 56,54 C55.2,55.5 54,55.5 54,55.5 C54,55.5 52.8,55.5 52,54 C51,52 52.2,50.5 54,48 Z" />
+    <path
+        android:fillColor="#FFF59D"
+        android:pathData="M54,50.5 C55,52 55.5,52.8 55,53.8 C54.5,54.5 54,54.5 54,54.5 C54,54.5 53.5,54.5 53,53.8 C52.5,52.8 53,52 54,50.5 Z" />
+
+    <!-- Open Civics Book Emblem at Base -->
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M54,71 C51,69.5 45,69.5 40,70.5 V77.5 C45,76.5 51,76.5 54,78.5 C57,76.5 63,76.5 68,77.5 V70.5 C63,69.5 57,69.5 54,71 Z" />
+    <path
+        android:strokeColor="#0D2040"
+        android:strokeWidth="1"
+        android:pathData="M54,71 V78.5" />
+</vector>

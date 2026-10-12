@@ -1,0 +1,6 @@
+{
+  "name": "U.S. Citizenship Test",
+  "description": "Independent civics study and practice app for the U.S. naturalization test.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
